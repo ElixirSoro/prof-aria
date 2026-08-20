@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prof. Aria — coaching intensif d'anglais</title>
+<meta name="description" content="Six semaines de coaching d'anglais intensif, du niveau actuel vers C2, avec préparation TOEFL iBT et TOEIC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/css/aria.css">
+</head>
+<body>
+
+<!-- ======================= ÉCRAN DE CONNEXION ======================= -->
+<section id="gate" class="gate" hidden>
+  <div class="gate__panel">
+    <p class="eyebrow">Six semaines · 42 jours · CEFR, TOEFL iBT, TOEIC</p>
+    <h1 class="gate__title">Prof. <em>Aria</em></h1>
+    <p class="gate__lede">
+      Un tuteur qui corrige tout, ne promet rien qu'il ne puisse tenir, et recalcule
+      votre trajectoire après chaque séance.
+    </p>
+
+    <div class="gate__actions">
+      <button id="btn-google" class="btn btn--primary">Continuer avec Google</button>
+      <div class="rule"><span>ou par e-mail</span></div>
+      <label class="field">
+        <span class="field__label">Adresse e-mail</span>
+        <input id="email" type="email" autocomplete="email" placeholder="vous@exemple.com">
+      </label>
+      <button id="btn-magic" class="btn">Recevoir un lien de connexion</button>
+      <p id="gate-msg" class="gate__msg" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= APPLICATION ======================= -->
+<main id="app" class="shell" hidden>
+
+  <!-- ---------- Rail gauche : le dossier de l'apprenant ---------- -->
+  <aside class="rail">
+    <header class="rail__head">
+      <h1 class="brand">Prof. <em>Aria</em></h1>
+      <p id="who" class="rail__who mono"></p>
+    </header>
+
+    <!-- SIGNATURE : la colonne CEFR, 42 jours -->
+    <section class="spine" aria-labelledby="spine-title">
+      <h2 id="spine-title" class="rail__h2">Trajectoire</h2>
+      <div id="spine-host" class="spine__host"></div>
+      <p class="spine__legend mono">
+        <span class="key key--done"></span>relevé
+        <span class="key key--plan"></span>visé
+      </p>
+    </section>
+
+    <!-- Estimations d'examen -->
+    <section class="gauges" aria-labelledby="gauges-title">
+      <h2 id="gauges-title" class="rail__h2">Estimations</h2>
+      <div class="gauge" data-exam="toefl">
+        <div class="gauge__top"><span>TOEFL iBT</span><b id="g-toefl-v" class="mono">—</b></div>
+        <div class="gauge__track"><i id="g-toefl-b" style="--w:0%"></i></div>
+        <div class="gauge__foot mono">sur 120</div>
+      </div>
+      <div class="gauge" data-exam="toeic">
+        <div class="gauge__top"><span>TOEIC</span><b id="g-toeic-v" class="mono">—</b></div>
+        <div class="gauge__track"><i id="g-toeic-b" style="--w:0%"></i></div>
+        <div class="gauge__foot mono">sur 990</div>
+      </div>
+      <p class="disclaimer">Estimations produites par le tuteur, jamais des scores officiels.</p>
+    </section>
+
+    <!-- Points faibles -->
+    <section class="weak" aria-labelledby="weak-title">
+      <h2 id="weak-title" class="rail__h2">À travailler</h2>
+      <ul id="weak-list" class="weak__list"><li class="weak__empty">Rien de relevé pour l'instant.</li></ul>
+    </section>
+
+    <footer class="rail__foot">
+      <button id="btn-export" class="link">Exporter le profil</button>
+      <button id="btn-import" class="link">Importer</button>
+      <button id="btn-reset"  class="link link--warn">Réinitialiser</button>
+      <button id="btn-signout" class="link">Se déconnecter</button>
+      <input id="file-import" type="file" accept="application/json" hidden>
+    </footer>
+  </aside>
+
+  <!-- ---------- Colonne droite : la séance ---------- -->
+  <section class="session">
+    <header class="session__head">
+      <div>
+        <p class="eyebrow" id="day-line">Jour — / 42 · Semaine — / 6</p>
+        <h2 class="session__title" id="level-line">Niveau non évalué</h2>
+      </div>
+      <label class="toggle">
+        <input id="tts-auto" type="checkbox">
+        <span>Lecture auto</span>
+      </label>
+    </header>
+
+    <div id="thread" class="thread" role="log" aria-live="polite" aria-label="Séance"></div>
+
+    <div class="composer">
+      <button id="btn-mic" class="mic" title="Dicter la réponse" aria-label="Dicter la réponse">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+      </button>
+      <textarea id="input" rows="1" placeholder="Écrivez ou dictez votre réponse en anglais…" autocomplete="off"></textarea>
+      <button id="btn-send" class="btn btn--primary btn--send">Envoyer</button>
+    </div>
+    <p id="status" class="status mono" role="status" aria-live="polite"></p>
+  </section>
+</main>
+
+<script type="module" src="./assets/js/app.js"></script>
+</body>
+</html>
