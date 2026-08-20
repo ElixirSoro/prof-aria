@@ -1,6 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { SUPABASE_URL, SUPABASE_ANON_KEY, ARIA_FUNCTION } from "./config.js";
 import { createDictation, speak, stopSpeaking, dictationSupported } from "./speech.js";
+import { createSky } from "./sky.js";
 
 const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const $ = id => document.getElementById(id);
@@ -45,15 +46,19 @@ sb.auth.onAuthStateChange((_e, session) => { if (session) boot(session); });
   data.session ? boot(data.session) : showGate();
 })();
 
+const sky = createSky($("sky"));
+
 function showGate() {
   $("gate").hidden = false;
   $("app").hidden = true;
+  sky.demarrer();
 }
 
 /* ============================================================
    2. Démarrage de la séance
    ============================================================ */
 async function boot(session) {
+  sky.arreter();
   $("gate").hidden = true;
   $("app").hidden = false;
   $("who").textContent = session.user.email ?? session.user.id;
