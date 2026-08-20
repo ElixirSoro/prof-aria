@@ -12,12 +12,14 @@ let busy = false;
 /* ============================================================
    1. Connexion
    ============================================================ */
-$("btn-google").addEventListener("click", () =>
-  sb.auth.signInWithOAuth({
+$("btn-google").addEventListener("click", async () => {
+  setGateMsg("Redirection vers Google…");
+  const { error } = await sb.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo: window.location.href.split("#")[0] }
-  })
-);
+  });
+  if (error) setGateMsg(`Connexion Google indisponible : ${error.message}`);
+});
 
 $("btn-magic").addEventListener("click", async () => {
   const email = $("email").value.trim();
