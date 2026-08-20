@@ -21,6 +21,8 @@
   --rail-w: 336px;
 }
 
+[hidden]{ display:none !important; }
+
 *,*::before,*::after{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
