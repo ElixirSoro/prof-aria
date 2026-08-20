@@ -2,34 +2,55 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prof. Aria — coaching intensif d'anglais</title>
 <meta name="description" content="Six semaines de coaching d'anglais intensif, du niveau actuel vers C2, avec préparation TOEFL iBT et TOEIC.">
+<meta name="theme-color" content="#1E0B10">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Public+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./assets/css/aria.css">
 </head>
 <body>
 
-<!-- ======================= ÉCRAN DE CONNEXION ======================= -->
+<!-- ======================= CONNEXION ======================= -->
 <section id="gate" class="gate" hidden>
-  <div class="gate__panel">
-    <p class="eyebrow">Six semaines · 42 jours · CEFR, TOEFL iBT, TOEIC</p>
-    <h1 class="gate__title">Prof. <em>Aria</em></h1>
-    <p class="gate__lede">
-      Un tuteur qui corrige tout, ne promet rien qu'il ne puisse tenir, et recalcule
-      votre trajectoire après chaque séance.
-    </p>
+  <div class="gate__inner">
+    <div class="gate__pitch">
+      <p class="eyebrow eyebrow--light">42 jours · CEFR · TOEFL iBT · TOEIC</p>
+      <h1 class="gate__title">Prof.<br><em>Aria</em></h1>
+      <p class="gate__lede">
+        Un tuteur qui corrige tout, ne promet rien qu'il ne puisse tenir,
+        et recalcule votre trajectoire après chaque séance.
+      </p>
+      <ul class="gate__facts">
+        <li><b>4</b><span>compétences suivies</span></li>
+        <li><b>6</b><span>semaines de programme</span></li>
+        <li><b>2</b><span>examens préparés</span></li>
+      </ul>
+    </div>
 
-    <div class="gate__actions">
-      <button id="btn-google" class="btn btn--primary">Continuer avec Google</button>
-      <div class="rule"><span>ou par e-mail</span></div>
+    <div class="card gate__card">
+      <h2 class="card__title">Commencer</h2>
+      <p class="card__sub">Votre progression est enregistrée et vous suit d'un appareil à l'autre.</p>
+
+      <button id="btn-google" class="btn btn--ghost btn--wide">
+        <svg class="g" viewBox="0 0 18 18" aria-hidden="true">
+          <path fill="#4285F4" d="M17.6 9.2c0-.6-.1-1.3-.2-1.9H9v3.5h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.7-3.9 2.7-6.5Z"/>
+          <path fill="#34A853" d="M9 18c2.4 0 4.5-.8 6-2.2l-2.9-2.2c-.8.5-1.8.9-3.1.9-2.4 0-4.4-1.6-5.1-3.8H.9v2.3A9 9 0 0 0 9 18Z"/>
+          <path fill="#FBBC05" d="M3.9 10.7a5.4 5.4 0 0 1 0-3.4V5H.9a9 9 0 0 0 0 8l3-2.3Z"/>
+          <path fill="#EA4335" d="M9 3.6c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 0 0 .9 5l3 2.3C4.6 5.1 6.6 3.6 9 3.6Z"/>
+        </svg>
+        Continuer avec Google
+      </button>
+
+      <div class="rule"><span>ou</span></div>
+
       <label class="field">
         <span class="field__label">Adresse e-mail</span>
         <input id="email" type="email" autocomplete="email" placeholder="vous@exemple.com">
       </label>
-      <button id="btn-magic" class="btn">Recevoir un lien de connexion</button>
+      <button id="btn-magic" class="btn btn--primary btn--wide">Recevoir un lien de connexion</button>
       <p id="gate-msg" class="gate__msg" role="status" aria-live="polite"></p>
     </div>
   </div>
@@ -37,78 +58,111 @@
 
 <!-- ======================= APPLICATION ======================= -->
 <main id="app" class="shell" hidden>
+  <div id="scrim" class="scrim"></div>
 
-  <!-- ---------- Rail gauche : le dossier de l'apprenant ---------- -->
-  <aside class="rail">
+  <!-- ---------- Dossier ---------- -->
+  <aside class="rail" id="rail">
     <header class="rail__head">
-      <h1 class="brand">Prof. <em>Aria</em></h1>
-      <p id="who" class="rail__who mono"></p>
+      <div class="mark" aria-hidden="true"><span>A</span></div>
+      <div class="rail__id">
+        <p class="brand">Prof. <em>Aria</em></p>
+        <p id="who" class="rail__who mono"></p>
+      </div>
+      <button id="btn-rail-close" class="rail__close" aria-label="Fermer le dossier">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </header>
 
-    <!-- SIGNATURE : la colonne CEFR, 42 jours -->
-    <section class="spine" aria-labelledby="spine-title">
-      <h2 id="spine-title" class="rail__h2">Trajectoire</h2>
-      <div id="spine-host" class="spine__host"></div>
-      <p class="spine__legend mono">
-        <span class="key key--done"></span>relevé
-        <span class="key key--plan"></span>visé
+    <!-- SIGNATURE : la trajectoire -->
+    <section class="panel" aria-labelledby="spine-title">
+      <div class="panel__head">
+        <h2 id="spine-title" class="panel__title">Trajectoire</h2>
+        <p id="spine-gap" class="panel__note mono">—</p>
+      </div>
+      <div id="spine-host" class="spine"></div>
+      <p class="legend mono">
+        <i class="dot dot--done"></i>acquis
+        <i class="dot dot--plan"></i>projection
       </p>
     </section>
 
-    <!-- Estimations d'examen -->
-    <section class="gauges" aria-labelledby="gauges-title">
-      <h2 id="gauges-title" class="rail__h2">Estimations</h2>
+    <!-- Estimations -->
+    <section class="panel" aria-labelledby="gauges-title">
+      <h2 id="gauges-title" class="panel__title">Estimations d'examen</h2>
+
       <div class="gauge" data-exam="toefl">
-        <div class="gauge__top"><span>TOEFL iBT</span><b id="g-toefl-v" class="mono">—</b></div>
+        <div class="gauge__row">
+          <span class="gauge__name">TOEFL iBT</span>
+          <b id="g-toefl-v" class="gauge__val">—</b>
+          <span class="gauge__max mono">/120</span>
+        </div>
         <div class="gauge__track"><i id="g-toefl-b" style="--w:0%"></i></div>
-        <div class="gauge__foot mono">sur 120</div>
       </div>
+
       <div class="gauge" data-exam="toeic">
-        <div class="gauge__top"><span>TOEIC</span><b id="g-toeic-v" class="mono">—</b></div>
+        <div class="gauge__row">
+          <span class="gauge__name">TOEIC</span>
+          <b id="g-toeic-v" class="gauge__val">—</b>
+          <span class="gauge__max mono">/990</span>
+        </div>
         <div class="gauge__track"><i id="g-toeic-b" style="--w:0%"></i></div>
-        <div class="gauge__foot mono">sur 990</div>
       </div>
-      <p class="disclaimer">Estimations produites par le tuteur, jamais des scores officiels.</p>
+
+      <p class="disclaimer">Estimations du tuteur, jamais des scores officiels.</p>
     </section>
 
     <!-- Points faibles -->
-    <section class="weak" aria-labelledby="weak-title">
-      <h2 id="weak-title" class="rail__h2">À travailler</h2>
-      <ul id="weak-list" class="weak__list"><li class="weak__empty">Rien de relevé pour l'instant.</li></ul>
+    <section class="panel" aria-labelledby="weak-title">
+      <h2 id="weak-title" class="panel__title">À travailler</h2>
+      <ul id="weak-list" class="chips"><li class="chips__empty">Rien de relevé pour l'instant.</li></ul>
     </section>
 
     <footer class="rail__foot">
-      <button id="btn-export" class="link">Exporter le profil</button>
-      <button id="btn-import" class="link">Importer</button>
-      <button id="btn-reset"  class="link link--warn">Réinitialiser</button>
-      <button id="btn-signout" class="link">Se déconnecter</button>
+      <button id="btn-export"  class="ghost">Exporter</button>
+      <button id="btn-import"  class="ghost">Importer</button>
+      <button id="btn-reset"   class="ghost ghost--warn">Réinitialiser</button>
+      <button id="btn-signout" class="ghost">Déconnexion</button>
       <input id="file-import" type="file" accept="application/json" hidden>
     </footer>
   </aside>
 
-  <!-- ---------- Colonne droite : la séance ---------- -->
+  <!-- ---------- Séance ---------- -->
   <section class="session">
     <header class="session__head">
-      <div>
+      <button id="btn-rail" class="rail-toggle" aria-expanded="false" aria-controls="rail">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        <span id="rail-toggle-label">Dossier</span>
+      </button>
+
+      <div class="session__meta">
         <p class="eyebrow" id="day-line">Jour — / 42 · Semaine — / 6</p>
         <h2 class="session__title" id="level-line">Niveau non évalué</h2>
       </div>
-      <label class="toggle">
+
+      <label class="switch" title="Lire les réponses à voix haute">
         <input id="tts-auto" type="checkbox">
-        <span>Lecture auto</span>
+        <span class="switch__track"><i></i></span>
+        <span class="switch__label">Lecture auto</span>
       </label>
     </header>
 
     <div id="thread" class="thread" role="log" aria-live="polite" aria-label="Séance"></div>
 
     <div class="composer">
-      <button id="btn-mic" class="mic" title="Dicter la réponse" aria-label="Dicter la réponse">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
-      </button>
-      <textarea id="input" rows="1" placeholder="Écrivez ou dictez votre réponse en anglais…" autocomplete="off"></textarea>
-      <button id="btn-send" class="btn btn--primary btn--send">Envoyer</button>
+      <div class="composer__box">
+        <textarea id="input" rows="1" placeholder="Écrivez ou dictez votre réponse en anglais…" autocomplete="off"></textarea>
+        <div class="composer__tools">
+          <button id="btn-mic" class="icon" title="Dicter la réponse" aria-label="Dicter la réponse">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          </button>
+          <button id="btn-send" class="btn btn--primary btn--send">
+            Envoyer
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+      <p id="status" class="status mono" role="status" aria-live="polite"></p>
     </div>
-    <p id="status" class="status mono" role="status" aria-live="polite"></p>
   </section>
 </main>
 
