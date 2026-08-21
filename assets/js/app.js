@@ -188,14 +188,13 @@ async function send() {
     bubble.finish(received);
     setStatus(stuck ?? "");
   } catch (err) {
+    console.error("[aria]", err);
     if (received) {
       bubble.finish(received);
-      setStatus(`Flux interrompu : ${err.message}. La réponse est peut-être incomplète.`);
+      setStatus("Flux interrompu : " + err.message + ". La reponse est peut-etre incomplete.");
     } else {
       bubble.el.remove();
-      setStatus(`Réponse non reçue : ${err.message}. Votre message n'a pas été perdu, réessayez.`);
-      input.value = text;
-      input.dispatchEvent(new Event("input"));
+      echecMessage(text, err.message);
     }
   } finally {
     busy = false;
@@ -265,7 +264,26 @@ function addStreamingMessage() {
 }
 
 const scrollThread = () => { $("thread").scrollTop = $("thread").scrollHeight; };
-const setStatus = t => { $("status").textContent = t; };
+
+/** L'envoi a echoue : on garde le texte sous la main sans encombrer le champ. */
+function echecMessage(text, raison) {
+  const box = $("status");
+  box.innerHTML = "";
+  const p = document.createElement("span");
+  p.textContent = "Non envoye — " + raison + ". ";
+  const b = document.createElement("button");
+  b.className = "retry";
+  b.textContent = "Renvoyer";
+  b.addEventListener("click", () => {
+    box.textContent = "";
+    input.value = text;
+    input.dispatchEvent(new Event("input"));
+    send();
+  });
+  box.appendChild(p);
+  box.appendChild(b);
+}
+const setStatus = t => { $("status").textContent = t || ""; };
 
 const esc = s => s.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
